@@ -24,11 +24,13 @@ export class DatabasePostgres {
         await sql`insert into videos (id, title, description, duration) values(${videoId}, ${title}, ${description}, ${duration})`;
     }
 
-    update(id, video) {
+    async update(id, video) {
+        const { title, description, duration } = video;
 
+        await sql`update videos set title = ${title}, description = ${description}, duration = ${duration} where id = ${id};`;
     }
 
-    delete(id) {
-
+    async delete(id) {
+        await sql`delete from videos where id = ${id}`;
     }
 }

@@ -41,11 +41,11 @@ server.get('/videos', async (request) => {
     return videos;
 });
 
-server.put('/videos/:id', (request, reply) => {
+server.put('/videos/:id', async (request, reply) => {
     const videoId = request.params.id;
     const { title, description, duration } = request.body;
 
-    database.update(videoId, {
+    await database.update(videoId, {
         title,
         description,
         duration
@@ -54,10 +54,10 @@ server.put('/videos/:id', (request, reply) => {
     return reply.status(204).send(); // 204 - Resposta de sucesso sem conteúdo na resposta.
 });
 
-server.delete('/videos/:id', (request, reply) => {
+server.delete('/videos/:id', async (request, reply) => {
     const videoId = request.params.id;
 
-    database.delete(videoId);
+    await database.delete(videoId);
 
     return reply.status(204).send();
 })
